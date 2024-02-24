@@ -88,36 +88,38 @@ $$ T(n) =
     \end{cases}
 $$
 
+### Master Theorem
 
-### Step-by-Step Solution
+The Master Theorem helps us find the time complexity of recurrence relations of the form:
+$T(n) = aT(n/b) + f(n)$
+- **a** is how many times the function calls itself.
+- **b** is how much smaller each recursive call's input size is.
+- **f(n)** is the extra work done outside the recursive calls.
 
-1. **First Expansion:**
-   - For $n > 1$, we begin with: $T(n) = 13T(n/13) + 2n$.
+### Matching Given Equation to the Theorem
 
-2. **Second Expansion:**
-   - Applying the relation again: $T(n)$ = $13[13T((n/13)/13) + 2(n/13)] + 2n$ = $13^2T(n/13^2)$ + $2 * 13 * (n/13) + 2n$.
+For our recurrence relation:
+- $a = 13$, because the function calls itself 13 times.
+- $b = 13$, because each time, the input size is divided by 13.
+- $f(n) = 2n$, the extra work for combining the results.
 
-3. **i-th Expansion:**
-   - After $i$ expansions, we obtain: $T(n) = 13^iT(n/13^i) + 2n(1 + 13 + 13^2 + ... + 13^{i-1})$.
+### Analyzing $f(n)$ Against $n$<sup>$(log_b(a))$</sup>
 
-### Determining When Recursion Stops
+- We calculate $log_b(a)$ = $log$<sub>$13$</sub>$(13) = 1$.
+- So, we compare $2n$ (our $f(n)$ ) with $n^1$ (which is just $n$).
 
-- The recursion stops when $n/13^i ≤ 1$, which happens at $i = log$<sub>$13$</sub>$(n)$.
+### Applying Master Theorem
 
-### Evaluating the Geometric Series
+According to the theorem, we have three cases. Our case matches when $f(n)$ is directly proportional to $n$<sup>$(log_b(a))$</sup>, which puts us in **Case 2**:
 
-- The series $1 + 13 + 13^2 + ... + 13^{i-1}$ can be summed up as: $S = (13^i - 1) / (13 - 1)$.
+- **Case 2** of the Master Theorem says if $f(n)$ = $Θ(n$<sup>$(log_b(a))$</sup>), then the overall complexity is $Θ(n$<sup>$(log_b(a))$</sup> * $log n$).
 
-- Given $i = log$<sub>$13$</sub>$(n)$, this simplifies to: $S = (n - 1) / 12$.
+### Concluding Complexity
 
-### Final Expression
+Since $f(n) = 2n$ matches $n$<sup>($log$<sub>$13$</sub>($13$))</sup> = $n$, by Case 2, we find:
+- $T(n) = Θ(n * log n)$
 
-- Substituting $i = log$<sub>$13$</sub>$(n)$ and the series sum into our expansion, we get: $T(n) = n + (2n(n - 1)) / 12$.
+### Conclusion
 
-### Simplifying for Big Theta
+By applying the Master Theorem to the recurrence relation, we find that the computational complexity is $Θ(n * log n)$. This means as the size of our problem ($n$) increases, the total work or time to solve the problem grows in proportion to $n * log n$.
 
-- After simplification, the dominant term for large $n$ is identified: $T(n) = 1/6n^2 + 5/6n$.
-
-  Thus, the Big Theta notation is $Θ(n^2)$, indicating a quadratic relationship between $n$ and the total work.
-
-  $T(n) = Θ(n^2)$
