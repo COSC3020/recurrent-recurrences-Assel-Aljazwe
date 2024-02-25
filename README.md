@@ -88,7 +88,27 @@ $$ T(n) =
     \end{cases}
 $$
 
-### Master Theorem
+### Solution
+1. **Expanding Recurrence:**
+   - Initial step: $T(n) = 13T(n/13) + 2n$.
+
+2. **Recursive Application:**
+   - Applying recursion i times reduces the problem size to $n/13^i$.
+
+3. **Base Case Determination:**
+   - Base case is reached when $n/13^i = 1$, leading to $i = log$<sub>$13$</sub>$(n)$.
+
+4. **Summing Linear Work:**
+   - At each of the $log$<sub>$13$</sub>$(n)$ levels, $2n$ work is added, generating linear work over logarithmic depth.
+
+### Asymptotic Complexity Calculation
+
+- Considering the accumulation of linear work $2n$ across $log$<sub>$13$</sub>$(n)$ levels, the total work is represented as proportional to $n log$<sub>$13$</sub>$(n)$.
+- Since Logarithm bases are constants, and constant bases don't matter, $n log$<sub>$13$</sub>$(n)$ simplifies to $Θ(n log(n))$ in asymptotic notation.
+  
+  $T(n)$ = $Θ(n log(n))$
+
+## Verifying with Master Theorem
 
 The Master Theorem helps us find the time complexity of recurrence relations of the form:
 $T(n) = aT(n/b) + f(n)$
@@ -122,4 +142,6 @@ Since $f(n) = 2n$ matches $n$<sup>($log$<sub>$13$</sub>($13$))</sup> = $n$, by C
 ### Conclusion
 
 By applying the Master Theorem to the recurrence relation, we find that the computational complexity is $Θ(n * log n)$. This means as the size of our problem ($n$) increases, the total work or time to solve the problem grows in proportion to $n * log n$.
+
+$T(n)$ = $Θ(n log(n))$
 
