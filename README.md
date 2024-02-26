@@ -36,7 +36,7 @@ $$
 
 - Considering the final expression grows logarithmically and the base of the logarithm doesn't really matter for big picture complexity (since we ignore constant numbers), the overall complexity is:
   
-  $T(n) = Θ(log(n))$
+  **$$T(n) \in \Theta(\log(n))$$**
 
   This notation indicates that the growth rate of the function is logarithmic with respect to the size of the input n
 
@@ -76,8 +76,10 @@ The recurrence describes a scenario where each problem of size $n$ is divided in
 - $T(n) = n + (5(n - 1))/12$
 
   Since both terms are linear with respect to $n$, we conclude:
+  
+  **$$T(n) \in \Theta(n)$$**
 
-  $T(n) = Θ(n)$
+  
 
 
 3.
@@ -106,7 +108,7 @@ $$
 - Considering the accumulation of linear work $2n$ across $log$<sub>$13$</sub>$(n)$ levels, the total work is represented as proportional to $n log$<sub>$13$</sub>$(n)$.
 - Since Logarithm bases are constants, and constant bases don't matter, $n log$<sub>$13$</sub>$(n)$ simplifies to $Θ(n log(n))$ in asymptotic notation.
   
-  $T(n)$ = $Θ(n log(n))$
+  $$T(n) \in \Theta(n \log(n))$$
 
 ## Verifying with Master Theorem
 
@@ -137,11 +139,11 @@ According to the theorem, we have three cases. Our case matches when $f(n)$ is d
 ### Concluding Complexity
 
 Since $f(n) = 2n$ matches $n$<sup>($log$<sub>$13$</sub>($13$))</sup> = $n$, by Case 2, we find:
-- $T(n) = Θ(n * log n)$
+- $T(n) \in \Theta(n \log(n))$
 
 ### Conclusion
 
 By applying the Master Theorem to the recurrence relation, we find that the computational complexity is $Θ(n * log n)$. This means as the size of our problem ($n$) increases, the total work or time to solve the problem grows in proportion to $n * log n$.
 
-$T(n)$ = $Θ(n log(n))$
+**$$T(n) \in \Theta(n \log(n))$$**
 
