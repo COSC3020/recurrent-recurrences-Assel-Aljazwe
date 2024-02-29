@@ -90,25 +90,36 @@ $$ T(n) =
     \end{cases}
 $$
 
-### Solution
-1. **Expanding Recurrence:**
-   - Initial step: $T(n) = 13T(n/13) + 2n$.
+## Using Substitution Method:
+### Recursive Expansion
 
-2. **Recursive Application:**
-   - Applying recursion i times reduces the problem size to $n/13^i$.
+To observe the pattern of the recurrence, we expand the relation:
 
-3. **Base Case Determination:**
-   - Base case is reached when $n/13^i = 1$, leading to $i = log$<sub>$13$</sub>$(n)$.
+Initial step: $T(n) = 13T(n/13) + 2n$
 
-4. **Summing Linear Work:**
-   - At each of the $log$<sub>$13$</sub>$(n)$ levels, $2n$ work is added, generating linear work over logarithmic depth.
+By substituting $T(n/13)$ back into the equation, we get an expanded form:
+   $T(n) = 13^2T(n/13^2) + 2n + 2n$
+   
+### Identifying the Pattern of Expansion
+After k expansions, the recurrence relation takes the form:
+$T(n) = 13^kT(n/13^k) + 2kn$
 
-### Asymptotic Complexity Calculation
+### Reaching the Base Case
 
-- Considering the accumulation of linear work $2n$ across $log$<sub>$13$</sub>$(n)$ levels, the total work is represented as proportional to $n log$<sub>$13$</sub>$(n)$.
-- Since Logarithm bases are constants, and constant bases don't matter, $n log$<sub>$13$</sub>$(n)$ simplifies to $Θ(n log(n))$ in asymptotic notation.
-  
-  $$T(n) \in \Theta(n \log(n))$$
+The base case is reached when $n/13^k = 1$, which means $k = log$<sub>$13$</sub>$(n)$.
+
+### Substituting $k$ into the Expansion
+
+Substituting $k = log$<sub>$13$</sub>$(n)$ back into our expanded equation, we get:
+
+$T(n) = n + 2nlog$<sub>$13$</sub>$(n)$
+
+### Simplifying
+
+This simplifies to a growth of $Θ(n log n)$, showing the solution's complexity:
+
+**$$T(n) \in \Theta(n \log(n))$$**
+
 
 ## Verifying with Master Theorem
 
