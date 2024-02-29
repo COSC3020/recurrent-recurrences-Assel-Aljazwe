@@ -19,7 +19,7 @@ $$
    - For $n > 1$, we start with: $T(n) = T(n/13) + 5$.
 
 2. **Second Expansion:**
-   - Apply the relation again: $T(n) = T((n/13)/13) + 5 + 5$ = $T(n/13$<sup>$2$</sup>) + $10$.
+   - Applying the relation again: $T(n) = T((n/13)/13) + 5 + 5$ = $T(n/13$<sup>$2$</sup>) + $10$.
 
 3. **i-th Expansion:**
    - Continuing this process, after i expansions: $T(n)$ = $T(n/13$<sup>$i$</sup>) + $5i$.
@@ -33,6 +33,12 @@ $$
 - Substituting i = $log$<sub>13</sub>(n) back into our expanded relation and knowing that $T(1) = 1$, we get the final expression:
 
 - $T(n) = 1 + 5log$<sub>$13$</sub>$(n)$
+
+- Considering the final expression grows logarithmically and the base of the logarithm doesn't really matter for big picture complexity (since we ignore constant numbers), the overall complexity is:
+  
+  **$$T(n) \in \Theta(\log(n))$$**
+
+  This notation indicates that the growth rate of the function is logarithmic with respect to the size of the input n
 
 
 2.
@@ -51,23 +57,29 @@ The recurrence describes a scenario where each problem of size $n$ is divided in
    - $T(n) = 13T(n/13) + 5$.
 
 2. **Second Expansion:**
-   - Apply the recurrence to $T(n/13)$: $T(n) = 13(13T(n/13^2) + 5) + 5 = 13^2T(n/13^2) + 13 * 5 + 5$.
+   - Applying the recurrence to $T(n/13)$: $T(n) = 13(13T(n/13^2) + 5) + 5$ = $13^2T(n/13^2) + 13 * 5 + 5$.
 
 3. **i-th Expansion:**
    - After $i$ expansions: $T(n) = 13^iT(n/13^i) + 5(13^{i-1} + 13^{i-2} + ... + 1)$.
    - The sum is a geometric series: $S = (13^i - 1) / (13 - 1)$ = $(13^i - 1) / 12$.
 
-4. **Termination of Recursion:**
-   - Recursion stops when $n/13^i ≤ 1$, implying $n ≤ 13^i$. Solving for $i$ gives $i = log_13(n)$.
+4. **End of Recursion:**
+   - Recursion stops when $n/13^i ≤ 1$, implying $n ≤ 13^i$. Solving for $i$ gives $i = log$<sub>$13$</sub>$(n)$.
 
 5. **Final Expansion:**
-   - Substituting $i = log_13(n)$ back: $T(n) = nT(1) + 5(n - 1)/12$, with $T(1) = 1$, simplifying to $T(n) = n + 5(n - 1)/12$.
+   - Substituting $i = log$<sub>$13$</sub>$(n)$ back: $T(n) = nT(1) + 5(n - 1)/12$, with $T(1) = 1$, simplifying to $T(n) = n + 5(n - 1)/12$.
 
 ### Simplification:
 
-The final expression simplifies to a linear relationship with $n$:  $T(n) = n + (5(n - 1))/12$
-Since both terms are linear with respect to $n$, we conclude:
-$T(n) = Θ(n)$
+- The final expression simplifies to a linear relationship with $n$:  
+
+- $T(n) = n + (5(n - 1))/12$
+
+  Since both terms are linear with respect to $n$, we conclude:
+  
+  **$$T(n) \in \Theta(n)$$**
+
+  
 
 
 3.
@@ -78,30 +90,71 @@ $$ T(n) =
     \end{cases}
 $$
 
+## Using Substitution Method:
+### Recursive Expansion
 
-### Step-by-Step Solution
+To observe the pattern of the recurrence, we expand the relation:
 
-1. **First Expansion:**
-   - For $n > 1$, we begin with: $T(n) = 13T(n/13) + 5$.
+Initial step: $T(n) = 13T(n/13) + 2n$
 
-2. **Second Expansion:**
-   - Applying the relation again: $T(n) = 13[13T((n/13)/13) + 5] + 5 = 13^2T(n/13^2) + 13*5 + 5$.
+By substituting $T(n/13)$ back into the equation, we get an expanded form:
+   $T(n) = 13^2T(n/13^2) + 2n + 2n$
+   
+### Identifying the Pattern of Expansion
+After k expansions, the recurrence relation takes the form:
+$T(n) = 13^kT(n/13^k) + 2kn$
 
-3. **i-th Expansion:**
-   - After $i$ expansions, we obtain: $T(n) = 13^iT(n/13^i)$ + $5Σ(13^k)$ from $k=0$ to $i-1$.
+### Reaching the Base Case
 
-### Determining When Recursion Stops
+The base case is reached when $n/13^k = 1$, which means $k = log$<sub>$13$</sub>$(n)$.
 
-- The recursion stops when $n/13^i ≤ 1$, leading to $i = log_13(n)$.
+### Substituting $k$ into the Expansion
 
-### Final Expression Using Geometric Series
+Substituting $k = log$<sub>$13$</sub>$(n)$ back into our expanded equation, we get:
 
-- The sum $5Σ(13^k)$ from $k=0$ to $i-1$ is a geometric series, which simplifies to: $5(13^i - 1)/(13 - 1)$.
+$T(n) = n + 2nlog$<sub>$13$</sub>$(n)$
 
-- Substituting $i = log_13(n)$, we get: $T(n) = n + (5(n - 1))/12$.
+### Simplifying
 
-### Simplifying for Big Theta
+This simplifies to a growth of $Θ(n log n)$, showing the solution's complexity:
 
-- Ignoring lower order terms and constants for large $n$, we arrive at: $T(n) = (17n/12) - (5/12)$.
+**$$T(n) \in \Theta(n \log(n))$$**
 
-- Thus, for large $n$, $T(n) = Θ(n)$, indicating a linear relationship between $n$ and the total work.
+
+## Verifying with Master Theorem
+
+The Master Theorem helps us find the time complexity of recurrence relations of the form:
+$T(n) = aT(n/b) + f(n)$
+- **a** is how many times the function calls itself.
+- **b** is how much smaller each recursive call's input size is.
+- **f(n)** is the extra work done outside the recursive calls.
+
+### Matching Given Equation to the Theorem
+
+For our recurrence relation:
+- $a = 13$, because the function calls itself 13 times.
+- $b = 13$, because each time, the input size is divided by 13.
+- $f(n) = 2n$, the extra work for combining the results.
+
+### Analyzing $f(n)$ Against $n$<sup>$(log_b(a))$</sup>
+
+- We calculate $log_b(a)$ = $log$<sub>$13$</sub>$(13) = 1$.
+- So, we compare $2n$ (our $f(n)$ ) with $n^1$ (which is just $n$).
+
+### Applying Master Theorem
+
+According to the theorem, we have three cases. Our case matches when $f(n)$ is directly proportional to $n$<sup>$(log_b(a))$</sup>, which puts us in **Case 2**:
+
+- **Case 2** of the Master Theorem says if $f(n)$ = $Θ(n$<sup>$(log_b(a))$</sup>), then the overall complexity is $Θ(n$<sup>$(log_b(a))$</sup> * $log n$).
+
+### Concluding Complexity
+
+Since $f(n) = 2n$ matches $n$<sup>($log$<sub>$13$</sub>($13$))</sup> = $n$, by Case 2, we find:
+- $T(n) \in \Theta(n \log(n))$
+
+### Conclusion
+
+By applying the Master Theorem to the recurrence relation, we find that the computational complexity is $Θ(n * log n)$. This means as the size of our problem ($n$) increases, the total work or time to solve the problem grows in proportion to $n * log n$.
+
+**$$T(n) \in \Theta(n \log(n))$$**
+
